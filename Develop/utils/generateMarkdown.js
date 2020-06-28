@@ -1,11 +1,62 @@
+const generateInstructions = instructionsText => {
+  if (!instructionsText) {
+    return '';
+  }
+  
+  return `
+  ## Installation Instructions 
+  ${instructionsText}
+  `;
+}
+
+const generateCollaborators = collaboratorsText => {
+  if (!collaboratorsText) {
+    return '';
+  }
+  
+  return `
+  ## Contributors
+  ${collaboratorsText}
+  `;
+}
+
+
+const generateGuidelines = guidelinesText => {
+  if (!guidelinesText) {
+    return '';
+  }
+  
+  return `
+  ## Contribution guidelines
+  ${guidelinesText}
+  `;
+}
+
 // function to generate markdown for README
 function generateMarkdown(data) {
-  return `
-# ${data.title}
+  console.log(data);
 
-## Badges
+  const {
+    title,
+    projectDescription,
+    confirmInstructions,
+    instructions,
+    usages,
+    confirmContributors,
+    contributors,
+    confirmGuidelines,
+    guidelines,
+    confirmTest,
+    test,
+    lincense,
+    githubUsername
+  } = data
+
+  return `
+# ${title}
 
 ## Description 
+${description}
 
 
 ## Table of Contents
@@ -20,18 +71,21 @@ function generateMarkdown(data) {
 * [Questions?](#questions?)
 
 
+${generateInstructions(instructions)}
 
-## Installation Instructions
+## Usage
+${usages}
 
-## Usage 
+${generateCollaborators(contributors)}
 
-## Contributors
+${generateGuidelines(guidelines)}
+
+## Tests
+
+## Badges
 
 ## License
 ---
-## Contribution guidelines
-
-## Tests
 
 ## Questions? 
 Send me a message on GitHub or E-mail me at: 

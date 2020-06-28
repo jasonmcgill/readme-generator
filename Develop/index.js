@@ -4,10 +4,10 @@ const generateMarkdown = require('./utils/generateMarkdown');
 // array of questions for user
 const questions = [{
         type: 'input',
-        name: 'name',
+        name: 'title',
         message: 'What is the project title? (Required)',
-        validate: nameInput => {
-            if (nameInput) {
+        validate: titleInput => {
+            if (titleInput) {
                 return true;
             } else {
                 console.log('Please enter your project title');
@@ -30,18 +30,31 @@ const questions = [{
     },
     {
         type: 'confirm',
-        name: 'confirmAbout',
+        name: 'confirmInstructions',
         message: 'Would you like to enter some installation instructions or examples of usages?',
         default: false
     },
     {
         type: 'input',
-        name: 'about',
-        message: 'Provide the installation instructions/examples of usages:',
+        name: 'instructions',
+        message: 'Provide the installation instructions',
         when: ({
-            confirmAbout
+            confirmInstructions
         }) => {
-            return confirmAbout
+            return confirmInstructions
+        }
+    },
+    {
+        type: 'input',
+        name: 'usages',
+        message: 'Please provide any instructions and examples of usages:',
+        validate: usagesInput => {
+            if (usagesInput) {
+                return true;
+            } else {
+                console.log('Please enter any instructions and examples of usages');
+                return false;
+            }
         }
     },
     {
@@ -118,7 +131,11 @@ function writeToFile(fileName, data) {}
 
 // function to initialize program
 function init() {
-    console.log("Hi! Lets generate a readme!")
+    console.log(`
+    ===========================
+    Hi! Lets generate a readme!
+    ===========================
+    `);
     inquirer.prompt(questions)
         .then(generateMarkdown)
         .catch(error => {
