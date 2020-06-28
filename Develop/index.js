@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
+const fs = require('fs');
 
 // array of questions for user
 const questions = [{
@@ -123,6 +124,19 @@ const questions = [{
                 return false;
             }
         }  
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Please provide your email address: (Required)',
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log('Please enter your email address');
+                return false;
+            }
+        }
     }
 ];
 
@@ -137,7 +151,16 @@ function init() {
     ===========================
     `);
     inquirer.prompt(questions)
-        .then(generateMarkdown)
+        .then(data => {
+            let markdown = generateMarkdown(data);
+            fs.writeFile('./dist/README.md', markdown, err => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Successfully wrote README!")
+                }
+            });
+        })
         .catch(error => {
             console.log("Something went wrong " + error.message);
         })
