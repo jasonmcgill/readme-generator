@@ -29,7 +29,7 @@ const generateGuidelines = guidelinesText => {
   }
   
   return `
-## Contribution guidelines
+## Contribution-guidelines
 ${guidelinesText}
   `;
 }
@@ -124,10 +124,10 @@ ${projectDescription}
 
 ## Table of Contents
 
-${(instructions ? '* [Instructions(#instructions)]' : '')}
+${(instructions ? '* [Instructions](#instructions)' : '')}
 * [Usage](#usage)
 ${(contributors ? '* [Contributors](#contributors)' : '')}
-${(guidelines ? '* [Guidelines](#guidelines)' : '')}
+${(guidelines ? '* [Guidelines](#contribution guidelines)' : '')}
 ${(test ? '* [Tests](#tests)' : '')}
 * [License](#license)
 * [Questions?](#questions?)
@@ -145,6 +145,7 @@ ${generateGuidelines(guidelines)}
 ${generateTest(test)}
 
 ## Badges
+![license badge](https://img.shields.io/badge/License-${license}-Green)
 
 ## License
 ${generateLicense(license, githubUsername)}
