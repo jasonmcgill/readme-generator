@@ -98,7 +98,7 @@ const questions = [{
     },
     {
         type: 'input',
-        name: 'test',
+        name: 'test', 
         message: 'Please enter any test instructions:',
         when: ({
             confirmTest
@@ -107,9 +107,9 @@ const questions = [{
         }
     },
     {
-        type: 'checkbox',
+        type: 'list',
         name: 'license',
-        message: 'What license does your provide?',
+        message: 'What license does your provide? (please select only one)', 
         choices: ['Apache', 'GNU', 'MIT']
     },
     {
@@ -141,7 +141,19 @@ const questions = [{
 ];
 
 // function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, markdown) {
+    fs.writeFile(fileName, markdown, err => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(`
+            ===========================
+            Successfully wrote README!
+            ===========================
+            `)
+        }
+    });
+}
 
 // function to initialize program
 function init() {
@@ -153,18 +165,14 @@ function init() {
     inquirer.prompt(questions)
         .then(data => {
             let markdown = generateMarkdown(data);
-            fs.writeFile('./dist/README.md', markdown, err => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Successfully wrote README!")
-                }
-            });
+            let filename = './dist/README.md'
+            writeToFile(filename, markdown)
         })
         .catch(error => {
             console.log("Something went wrong " + error.message);
-        })
+        });
 };
+
 
 // function call to initialize program
 init();

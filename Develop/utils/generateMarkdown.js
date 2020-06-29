@@ -99,39 +99,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // function to generate markdown for README
 function generateMarkdown(data) {
   console.log(data);
-
+//destructure data to easily usable variables
   const {
     title,
     projectDescription,
-    confirmInstructions,
     instructions,
     usages,
-    confirmContributors,
     contributors,
-    confirmGuidelines,
     guidelines,
-    confirmTest,
     test,
     license,
     githubUsername,
     email
   } = data
-
+ 
   return `
-# ${title}
+
+# ${title} ![license badge](https://img.shields.io/badge/License-${license}-Green)
 
 ## Description 
 ${projectDescription}
-![license badge](https://img.shields.io/badge/License-${license}-Green)
+
+
 
 ## Table of Contents
 
-
-* [Installation](#installation)
+${(instructions ? '* [Instructions(#instructions)]' : '')}
 * [Usage](#usage)
-* [Contributors](#contributors)
-* [Guidelines](#guidelines)
-* [Tests](#tests)
+${(contributors ? '* [Contributors](#contributors)' : '')}
+${(guidelines ? '* [Guidelines](#guidelines)' : '')}
+${(test ? '* [Tests](#tests)' : '')}
 * [License](#license)
 * [Questions?](#questions?)
 
@@ -153,9 +150,9 @@ ${generateTest(test)}
 ${generateLicense(license, githubUsername)}
 
 ## Questions? 
-Send me a message on GitHub (${githubUsername}) or E-mail me at:${email}
+Send me a message on GitHub (${githubUsername}) or E-mail me at: ${email}
 
 `;
 }
-
+//exporting the function to index.js
 module.exports = generateMarkdown;
